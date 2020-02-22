@@ -1,3 +1,6 @@
+#ifndef HASH_MAP_H
+#define HASH_MAP_H
+
 #include <functional>
 #include <initializer_list>
 #include <iostream>
@@ -128,15 +131,7 @@ public:
     }
 
     const_iterator find(KeyType key) const {
-        size_t table_index = hasher_(key) % table_size_;
-
-        for (auto&& element : table_[table_index]) {
-            if ((*element).first == key) {
-                return element;
-            }
-        }
-
-        return end();
+        return const_cast<HashMap*>(this)->find(key);
     }
 
     iterator find(KeyType key) {
@@ -185,3 +180,4 @@ public:
         table_.resize(kMinimalSize);
     }
 };
+#endif
